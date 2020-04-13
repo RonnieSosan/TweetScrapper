@@ -9,13 +9,11 @@ from dateutil.relativedelta import *
 # set dates for query
 fromdate = '2017-01-01'
 todate = '2020-01-31'
-search_term = 'Knife Crime'
 
+#Define search term
+search_term = 'anti social behaviour'
 
-#twitterCredentials = {}
-#with open("twitter_credentials.json", "r") as file:
-    #twitterCredentials = json.load(file)
-
+["Knife Crime", "Anti Social Behaviour", "Sexual Offence", "Shoplifting", "Robbery"]
 
 year = 2017
 formated_tweets = []
@@ -24,6 +22,7 @@ formated_tweets = []
 while year <= 2019 :
     twitter_querier = tq.TwitterApiConstruct()
 
+    #loop through users tweets
     #list_of_tweets = twitter_querier.get_user_timeLine_new('syptweet', fromdate, todate, 10)
     
     try:
@@ -45,6 +44,7 @@ while year <= 2019 :
             index = tweet.id
             date = datetime_object
 
+        #shift date query forward by one month for from_date and to_date
         fromdate = (datetime.strptime(fromdate, "%Y-%m-%d") + relativedelta(months =+ 1)).strftime("%Y-%m-%d")
         todate = (datetime.strptime(todate, "%Y-%m-%d") + relativedelta(months =+ 1)).strftime("%Y-%m-%d")
         year = datetime.strptime(todate, "%Y-%m-%d").year
@@ -53,6 +53,9 @@ while year <= 2019 :
         raise
         #break
 
+#create panda dataframe for formatted tweets
 df = pd.DataFrame(formated_tweets)
-df.to_csv(r'C:/Users/sosan/Documents/ADMP/ClassWorkData/{1}_result.csv'.format(search_term), index = False)
+
+#save tweets in csv file
+df.to_csv(r'C:/Users/sosan/Documents/ADMP/ClassWorkData/{}_result.csv'.format(search_term), index = False)
 

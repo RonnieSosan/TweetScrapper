@@ -7,6 +7,11 @@ class TwitterApiConstruct:
 
     def __init__(self, creds={}):
         self.credentials = creds
+    
+    #twitterCredentials = {}
+    #with open("twitter_credentials.json", "r") as file:
+    #twitterCredentials = json.load(file)
+
 
     def get_user_timeLine(self, max_id=''):   
         api_response = []
